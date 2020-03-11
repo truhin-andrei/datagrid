@@ -10,8 +10,6 @@ import Paper from "@material-ui/core/Paper";
 
 import DataRow from "./DataRow";
 
-import store from '../store/store'
-
 const StyledTableCell = withStyles(theme => ({
   head: {
     background: theme.palette.primary.light,
@@ -51,10 +49,6 @@ const useStyles = makeStyles({
 
 export default function DataTable() {
   const classes = useStyles();
-
-  console.log(store.getState())
-store.subscribe(() => console.log(store.getState()))
-//store.dispatch(FETCH_DATA)
 
   return (
     <TableContainer component={Paper}>

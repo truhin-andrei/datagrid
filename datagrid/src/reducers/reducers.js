@@ -20,7 +20,7 @@ const initialState = {
 function dataReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_DATA:
-      return Object.assign({}, state, {newItem: 38} )
+      return Object.assign({}, state, action.newPeople )
     default:
       return state
   }

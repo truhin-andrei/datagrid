@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './components/Header';
-import DataTable from './components/DataTable'
+import BoundTable from './containers/BoundTable'
 //import './App.css';
 
 function App() {
   return (
     <>
    <Header />
-   <DataTable />
+   <BoundTable />
    </>
   );
 }

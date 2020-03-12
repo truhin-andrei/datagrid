@@ -56,13 +56,15 @@ export default function DataTable() {
         <TableHead>
           <TableRow>
             <StyledTableCell>Number</StyledTableCell>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">some 6</StyledTableCell>
-            <StyledTableCell align="right">some 7</StyledTableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right">Age</StyledTableCell>
+            <StyledTableCell align="right">Gender</StyledTableCell>
+            <StyledTableCell align="right">Balance</StyledTableCell>
+            <StyledTableCell align="right">Eye&nbsp;color</StyledTableCell>
+            <StyledTableCell align="right">Email</StyledTableCell>
+            <StyledTableCell align="right">Phone</StyledTableCell>
+            <StyledTableCell align="right">Registered</StyledTableCell>
+            <StyledTableCell align="right">Active</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

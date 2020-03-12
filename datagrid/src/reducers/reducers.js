@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { FETCH_DATA } from '../actions/actions'
 
 const initialState = {
-  people: {
+  people1: {
     "_id": "5e6107a6d5d3ee0d394bad23",
     "index": 0,
     "isActive": false,
@@ -17,7 +17,7 @@ const initialState = {
   }
 }
 
-function dataReducer(state = initialState, action) {
+function peopleData(state = initialState, action) {
   switch (action.type) {
     case FETCH_DATA:
       return Object.assign({}, state, action.newPeople )
@@ -27,7 +27,7 @@ function dataReducer(state = initialState, action) {
 }
 
 const reducers = combineReducers({
-  dataReducer,
+  peopleData,
   
 })
 

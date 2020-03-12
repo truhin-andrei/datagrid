@@ -14,7 +14,7 @@ class BoundTable extends Component {
         //store.dispatch(FETCH_DATA)
     }
     render() {
-        console.log(this.props);
+        console.log(this.props.peopleData);
         
         return (
             <DataTable />
@@ -23,8 +23,9 @@ class BoundTable extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(1, state)
     return {
-      people: state
+      peopleData: state.peopleData
     }
   }
 

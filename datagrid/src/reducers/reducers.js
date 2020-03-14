@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux'
-import { FETCH_DATA } from '../actions/actions'
+import {
+  REQUEST_DATA,
+  RECEIVE_DATA
+} from '../actions/actions'
+
 
 const initialState = {
   people1: {
@@ -19,12 +23,26 @@ const initialState = {
 
 function peopleData(state = initialState, action) {
   switch (action.type) {
-    case FETCH_DATA:
-      return Object.assign({}, state, action.newPeople )
+   
+    case REQUEST_DATA:
+      return Object.assign({}, state, {
+        isFetching: true,
+      })
+    case RECEIVE_DATA:
+      return Object.assign({}, state, {
+        isFetching: false,
+        people: action.people,
+      })
     default:
       return state
   }
-}
+//   switch (action.type) {
+//     case FETCH_DATA:
+//       return Object.assign({}, state, action.newPeople )
+//     default:
+//       return state
+//   }
+ }
 
 const reducers = combineReducers({
   peopleData,

@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 
 import reducers from '../reducers/reducers'
-import { FETCH_DATA } from '../actions/actions'
+import { fetchPeopleData } from '../actions/actions'
 
 const middleware = [...getDefaultMiddleware()]
 
@@ -13,6 +13,7 @@ const store = configureStore({
 
 export default store
 
-console.log(store.getState())
+store.dispatch(fetchPeopleData())
+console.log(15, store.getState())
 // store.subscribe(() => console.log(store.getState()))
 // store.dispatch(FETCH_DATA)

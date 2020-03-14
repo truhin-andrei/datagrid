@@ -21,19 +21,21 @@ const StyledTableRow = withStyles(theme => ({
   }
 }))(TableRow);
 
-export default function DataRow({ row }) {
+export default function DataRow({ row, ind }) {
   return (
-    <StyledTableRow key={row.name}>
-      <StyledTableCell align="left">{row.number}</StyledTableCell>
+    <StyledTableRow key={row._id}>
+      <StyledTableCell align="left">{ind}</StyledTableCell>
       <StyledTableCell component="th" scope="row">
         {row.name}
       </StyledTableCell>
-      <StyledTableCell align="right">{row.calories}</StyledTableCell>
-      <StyledTableCell align="right">{row.fat}</StyledTableCell>
-      <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-      <StyledTableCell align="right">{row.protein}</StyledTableCell>
-      <StyledTableCell align="right">{row.thing6}</StyledTableCell>
-      <StyledTableCell align="right">{row.thing7}</StyledTableCell>
+      <StyledTableCell align="right">{row.age}</StyledTableCell>
+      <StyledTableCell align="right">{row.gender}</StyledTableCell>
+      <StyledTableCell align="right">{row.balance}</StyledTableCell>
+      <StyledTableCell align="right">{row.eyeColor}</StyledTableCell>
+      <StyledTableCell align="right">{row.email}</StyledTableCell>
+      <StyledTableCell align="right">{row.phone}</StyledTableCell>
+      <StyledTableCell align="right">{row.registered}</StyledTableCell>
+      <StyledTableCell align="right">{row.isActive ? 'yes' : 'no'}</StyledTableCell>
     </StyledTableRow>
   );
 }

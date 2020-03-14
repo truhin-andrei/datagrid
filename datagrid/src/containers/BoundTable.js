@@ -3,27 +3,22 @@ import { connect } from 'react-redux'
 
 import DataTable from '../components/DataTable';
 
-
-
 class BoundTable extends Component {
 
-    componentDidMount(){
-        // const {store} = this.props;
-        // console.log(store.getState())
-        // store.subscribe(() => console.log(15, store.getState()))
-        //store.dispatch(FETCH_DATA)
-    }
     render() {
-        console.log(this.props.peopleData);
-        
+      //  console.log(88, this.props.peopleData);
+        if (this.props.peopleData.isFetching) {
+          return <p>loading......</p>
+        }
+
         return (
-            <DataTable />
+            <DataTable rows={this.props.peopleData.people}/>
         )
     }
 }
 
 const mapStateToProps = state => {
-  console.log(1, state)
+ // console.log(1, state)
     return {
       peopleData: state.peopleData
     }

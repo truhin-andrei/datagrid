@@ -20,35 +20,16 @@ const StyledTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
-function createData(
-  number,
-  name,
-  calories,
-  fat,
-  carbs,
-  protein,
-  thing6,
-  thing7
-) {
-  return { number, name, calories, fat, carbs, protein, thing6, thing7 };
-}
-
-const rows = [
-  createData(1, "Frozen yoghurt", 159, 6.0, 24, 4.0, 6, 7),
-  createData(2, "Ice cream sandwich", 237, 9.0, 37, 4.3, 6, 7),
-  createData(2, "Eclair", 262, 16.0, 24, 6.0, 6, 7),
-  createData(2, "Cupcake", 305, 3.7, 67, 4.3, 6, 7),
-  createData(2, "Gingerbread", 356, 16.0, 49, 3.9, 6, 7)
-];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700
   }
 });
 
-export default function DataTable() {
+export default function DataTable(props) {
   const classes = useStyles();
+  const {rows} = props;
+//console.log(rows);
 
   return (
     <TableContainer component={Paper}>
@@ -68,8 +49,8 @@ export default function DataTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <DataRow row={row} />
+          {rows.map((row, ind) => (
+            <DataRow row={row} ind={ind} key={row.index} />
           ))}
         </TableBody>
       </Table>

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 
 const styles = theme => ({
@@ -16,7 +17,13 @@ const styles = theme => ({
     '& .ReactVirtualized__Table__headerRow': {
       flip: false,
       paddingRight: theme.direction === 'rtl' ? '0px !important' : undefined,
+      
     },
+    '& .ReactVirtualized__Table__headerColumn': {
+      alignItems: 'stretch',
+      display: 'flex',
+      flexWrap: 'wrap'
+    }
   },
   tableRow: {
     cursor: 'pointer',
@@ -32,11 +39,19 @@ const styles = theme => ({
   noClick: {
     cursor: 'initial',
   },
+  input: {
+    '&  input': {
+      padding: '2px 5px',      
+    },
+    '&  label': { 
+         transform: 'translate(16px, 4px) scale(1)'
+        }
+  }
 });
 
 class MuiVirtualizedTable extends React.PureComponent {
   static defaultProps = {
-    headerHeight: 48,
+    headerHeight: 100,
     rowHeight: 48,
   };
 
@@ -65,19 +80,23 @@ class MuiVirtualizedTable extends React.PureComponent {
     );
   };
 
-  headerRenderer = ({ label, columnIndex }) => {
-    const { headerHeight, columns, classes, width } = this.props;
+  headerRenderer = ({ label, dataKey}) => {
+    const {   classes, width } = this.props;
 
     return (
+      <>
       <TableCell
         component="div"
         className={clsx(classes.tableCell, classes.flexContainer, classes.noClick)}
         variant="head"
-        style={{ height: headerHeight, width }}
-        align={columns[columnIndex].numeric || false ? 'right' : 'left'}
+        style={{ height: 48, width }}
+        align='center'
       >
         <span>{label}</span>
       </TableCell>
+      {dataKey=== 'name' ? <TextField  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
+      
+      </>
     );
   };
 
@@ -165,12 +184,12 @@ export default function ReactVirtualizedTable(props) {
             dataKey: 'eyeColor',
           },
           {
-            width: 150,
+            width: 220,
             label: 'Email',
             dataKey: 'email',
           },
           {
-            width: 200,
+            width: 170,
             label: 'Phone',
             dataKey: 'phone',
           },

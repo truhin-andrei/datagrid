@@ -21,6 +21,17 @@ function receivePosts(json) {
   }
 }
 
+export const SEARCH_TEXT = 'SEARCH_TEXT';
+export function searchText(prop) {
+  //console.log(888, query);
+  
+  return {
+    type: SEARCH_TEXT,
+    query: prop.query,
+    keyData: prop.dataKey
+  }
+}
+
 function fetchData() {
   return dispatch => {
     dispatch(requestData())

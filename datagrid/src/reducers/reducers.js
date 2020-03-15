@@ -1,24 +1,15 @@
 import { combineReducers } from 'redux'
 import {
   REQUEST_DATA,
-  RECEIVE_DATA
+  RECEIVE_DATA,
+  SEARCH_TEXT,
+ 
 } from '../actions/actions'
+import store from '../store/store'
 
 
 const initialState = {
-  people1: {
-    "_id": "5e6107a6d5d3ee0d394bad23",
-    "index": 0,
-    "isActive": false,
-    "balance": "$3,549.50",
-    "age": 27,
-    "eyeColor": "green",
-    "name": "Lakisha Cooke",
-    "gender": "female",
-    "email": "lakishacooke@eyeris.com",
-    "phone": "+1 (949) 592-2398",
-    "registered": "2018-02-18T02:19:06 -07:00"
-  }
+
 }
 
 function peopleData(state = initialState, action) {
@@ -33,20 +24,26 @@ function peopleData(state = initialState, action) {
         isFetching: false,
         people: action.people,
       })
+      case SEARCH_TEXT:
+      return Object.assign({}, state, {
+        query: action.query,
+        filteredPeople: filter(action.query, state.people, action.keyData)
+      })
     default:
       return state
   }
-//   switch (action.type) {
-//     case FETCH_DATA:
-//       return Object.assign({}, state, action.newPeople )
-//     default:
-//       return state
-//   }
- }
+}
+
+function filter(query, array, keyData){
+  return array.filter(
+    item => 
+     item[keyData].toLowerCase().indexOf(query.toLowerCase()) + 1
+  );
+}
 
 const reducers = combineReducers({
   peopleData,
-  
+  //filteredData
 })
 
 export default reducers

@@ -81,7 +81,8 @@ class MuiVirtualizedTable extends React.PureComponent {
   };
 
   headerRenderer = ({ label, dataKey}) => {
-    const {   classes, width } = this.props;
+    const {   classes, width, onSearch } = this.props;
+//console.log(7, this.props.onSearch);
 
     return (
       <>
@@ -94,7 +95,7 @@ class MuiVirtualizedTable extends React.PureComponent {
       >
         <span>{label}</span>
       </TableCell>
-      {dataKey=== 'name' ? <TextField  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
+      {dataKey=== 'name' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
       
       </>
     );
@@ -144,11 +145,12 @@ class MuiVirtualizedTable extends React.PureComponent {
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 export default function ReactVirtualizedTable(props) {
-  const {rows} = props;
+  const {rows, onSearch} = props;
   return (
     <Paper style={{ height: 600, width: '100%' }}>
       <VirtualizedTable
         rowCount={rows.length}
+        onSearch={onSearch}
         rowGetter={({ index }) => 
         Object.assign({}, rows[index], 
           {number: index+1, registered: rows[index].registered.split('T')[0] ,active: rows[index].isActive ? 'yes': 'no'})}

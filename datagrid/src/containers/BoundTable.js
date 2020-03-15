@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux'
-
-import DataTable from '../components/DataTable';
+import ReactVirtualizedTable from '../components/ReactVirtualizedTable'
 
 class BoundTable extends Component {
 
@@ -12,7 +11,7 @@ class BoundTable extends Component {
         }
 
         return (
-            <DataTable rows={this.props.peopleData.people}/>
+          <ReactVirtualizedTable rows={this.props.peopleData.people}/>
         )
     }
 }
@@ -24,8 +23,6 @@ const mapStateToProps = state => {
     }
   }
 
-
-  
   export default connect(
     mapStateToProps
   )(BoundTable)

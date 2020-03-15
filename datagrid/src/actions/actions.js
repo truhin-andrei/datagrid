@@ -24,7 +24,7 @@ function receivePosts(json) {
 function fetchData() {
   return dispatch => {
     dispatch(requestData())
-    return fetch(`https://raw.githubusercontent.com/truhin-andrei/fake_api/master/fakeDataBase.json`)
+    return fetch(`https://raw.githubusercontent.com/truhin-andrei/fake_api/master/fakeDataBase1100.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePosts(json)))
   }

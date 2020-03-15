@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactVirtualizedTable from '../components/ReactVirtualizedTable'
 import {
 
-  searchText
+  searchText, sortNumber
 } from '../actions/actions'
 
 class BoundTable extends Component {
@@ -15,7 +15,13 @@ class BoundTable extends Component {
         }
 
         return (
-          <ReactVirtualizedTable rows={this.props.peopleData.filteredPeople || this.props.peopleData.people} onSearch={this.props.onSearch}/>
+          <ReactVirtualizedTable 
+          rows={this.props.peopleData.filteredPeople || this.props.peopleData.people} 
+          onSearch={this.props.onSearch}
+          onSort={this.props.onSort}
+          direction={this.props.direction}
+          />
+          
         )
     }
 }
@@ -25,9 +31,10 @@ class BoundTable extends Component {
 // }
 
 const mapStateToProps = state => {
- // console.log(1, state)
+  console.log(1, state)
     return {
-      peopleData: state.peopleData
+      peopleData: state.peopleData,
+      direction: state.peopleData.direction
     }
   }
 
@@ -35,7 +42,10 @@ const mapStateToProps = state => {
     return {
       onSearch: (ownProps) => {
        return dispatch(searchText(ownProps))
-      }
+      },
+      onSort: (ownProps) => {
+        return dispatch(sortNumber(ownProps))
+       },
     }
   }
 

@@ -23,11 +23,18 @@ function receivePosts(json) {
 
 export const SEARCH_TEXT = 'SEARCH_TEXT';
 export function searchText(prop) {
-  //console.log(888, query);
-  
   return {
     type: SEARCH_TEXT,
     query: prop.query,
+    keyData: prop.dataKey
+  }
+}
+
+export const SORT_NUMBER = 'SORT_NUMBER';
+export function sortNumber(prop) {
+  return {
+    type: SORT_NUMBER,
+    direction: prop.direction,
     keyData: prop.dataKey
   }
 }

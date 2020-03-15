@@ -5,6 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import AddIcon from '@material-ui/icons/Add';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 
 const styles = theme => ({
@@ -81,9 +84,13 @@ class MuiVirtualizedTable extends React.PureComponent {
   };
 
   headerRenderer = ({ label, dataKey}) => {
-    const {   classes, width, onSearch } = this.props;
-//console.log(7, this.props.onSearch);
+    const {   classes, width, onSearch, onSort, direction } = this.props;
+//console.log(7, direction);
 
+const getSortIcon = (direct) => {
+  if (direct === undefined) return <AddIcon/>
+ return  (direct ? <ArrowDownwardIcon/> :  <ArrowUpwardIcon/>)
+}
     return (
       <>
       <TableCell
@@ -93,7 +100,8 @@ class MuiVirtualizedTable extends React.PureComponent {
         style={{ height: 48, width }}
         align='center'
       >
-        <span>{label}</span>
+        <span >{label}</span>
+        {dataKey=== 'age'? (<p onClick={()=> onSort({direction: !direction, dataKey})}> {getSortIcon(direction)} </p>): null}
       </TableCell>
       {dataKey=== 'name' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
       
@@ -145,12 +153,14 @@ class MuiVirtualizedTable extends React.PureComponent {
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 export default function ReactVirtualizedTable(props) {
-  const {rows, onSearch} = props;
+  const {rows, onSearch, onSort, direction} = props;
   return (
     <Paper style={{ height: 600, width: '100%' }}>
       <VirtualizedTable
         rowCount={rows.length}
         onSearch={onSearch}
+        onSort={onSort}
+        direction={direction}
         rowGetter={({ index }) => 
         Object.assign({}, rows[index], 
           {number: index+1, registered: rows[index].registered.split('T')[0] ,active: rows[index].isActive ? 'yes': 'no'})}

@@ -28,7 +28,7 @@ function peopleData(state = initialState, action) {
       case SEARCH_TEXT:
       return Object.assign({}, state, {
         query: action.query,
-        filteredPeople: filter(action.query, [...state.filteredPeople], action.keyData)
+        filteredPeople: filter(action.query, [...state.people], action.keyData)
       });
       case SORT_NUMBER:
       return Object.assign({}, state, {

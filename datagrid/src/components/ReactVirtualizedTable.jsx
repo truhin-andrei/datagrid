@@ -103,7 +103,7 @@ const getSortIcon = (direct) => {
         <span >{label}</span>
         {dataKey=== 'age'? (<p onClick={()=> onSort({direction: !direction, dataKey})}> {getSortIcon(direction)} </p>): null}
       </TableCell>
-      {dataKey=== 'name' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
+      {dataKey=== 'name' || dataKey=== 'email' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
       
       </>
     );

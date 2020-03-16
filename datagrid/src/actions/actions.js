@@ -39,6 +39,15 @@ export function sortNumber(prop) {
   }
 }
 
+export const SORT_TOGGLE = 'SORT_TOGGLE';
+export function sortToggle(prop) {
+  return {
+    type: SORT_TOGGLE,
+    checked: prop.checked,
+    keyData: prop.dataKey
+  }
+}
+
 function fetchData() {
   return dispatch => {
     dispatch(requestData())

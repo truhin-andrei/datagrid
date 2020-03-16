@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import AddIcon from '@material-ui/icons/Add';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 
 const styles = theme => ({
@@ -84,8 +86,8 @@ class MuiVirtualizedTable extends React.PureComponent {
   };
 
   headerRenderer = ({ label, dataKey}) => {
-    const {   classes, width, onSearch, onSort, direction } = this.props;
-//console.log(7, direction);
+    const {   classes, width, onSearch, onSort, direction, checked, toggleChecked } = this.props;
+console.log(7, checked);
 
 const getSortIcon = (direct) => {
   if (direct === undefined) return <AddIcon/>
@@ -104,6 +106,9 @@ const getSortIcon = (direct) => {
         {dataKey=== 'age'? (<p onClick={()=> onSort({direction: !direction, dataKey})}> {getSortIcon(direction)} </p>): null}
       </TableCell>
       {dataKey=== 'name' || dataKey=== 'email' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
+      {dataKey=== 'active' ? <FormControlLabel control={<Switch size="small" checked={checked} onChange={() => toggleChecked({checked: !checked, dataKey})} />}
+        label="Small"
+      />   : null}
       
       </>
     );
@@ -153,7 +158,7 @@ const getSortIcon = (direct) => {
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 export default function ReactVirtualizedTable(props) {
-  const {rows, onSearch, onSort, direction} = props;
+  const {rows, onSearch, onSort, direction, checked, toggleChecked} = props;
   return (
     <Paper style={{ height: 600, width: '100%' }}>
       <VirtualizedTable
@@ -161,6 +166,8 @@ export default function ReactVirtualizedTable(props) {
         onSearch={onSearch}
         onSort={onSort}
         direction={direction}
+        checked={checked}
+        toggleChecked={toggleChecked}
         rowGetter={({ index }) => 
         Object.assign({}, rows[index], 
           {number: index+1, registered: rows[index].registered.split('T')[0] ,active: rows[index].isActive ? 'yes': 'no'})}

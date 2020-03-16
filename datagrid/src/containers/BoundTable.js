@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactVirtualizedTable from '../components/ReactVirtualizedTable'
 import {
 
-  searchText, sortNumber
+  searchText, sortNumber, sortToggle
 } from '../actions/actions'
 
 class BoundTable extends Component {
@@ -20,6 +20,8 @@ class BoundTable extends Component {
           onSearch={this.props.onSearch}
           onSort={this.props.onSort}
           direction={this.props.direction}
+          checked={this.props.checked}
+          toggleChecked={this.props.toggleChecked}
           />
           
         )
@@ -34,7 +36,8 @@ const mapStateToProps = state => {
   console.log(1, state)
     return {
       peopleData: state.peopleData,
-      direction: state.peopleData.direction
+      direction: state.peopleData.direction,
+      checked: state.peopleData.checked
     }
   }
 
@@ -45,6 +48,9 @@ const mapStateToProps = state => {
       },
       onSort: (ownProps) => {
         return dispatch(sortNumber(ownProps))
+       },
+       toggleChecked: (ownProps) => {
+        return dispatch(sortToggle(ownProps))
        },
     }
   }

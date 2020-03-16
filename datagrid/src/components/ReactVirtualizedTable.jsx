@@ -10,13 +10,25 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import AddIcon from '@material-ui/icons/Add';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { AutoSizer, Column, Table } from 'react-virtualized';
+
+var colors = {"1": "brown", "2": "green", "3": "blue"}
 
 const styles = theme => ({
   flexContainer: {
     display: 'flex',
     alignItems: 'center',
     boxSizing: 'border-box',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 300,
   },
   table: {
     '& .ReactVirtualized__Table__headerRow': {
@@ -54,6 +66,17 @@ const styles = theme => ({
   }
 });
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 class MuiVirtualizedTable extends React.PureComponent {
   static defaultProps = {
     headerHeight: 100,
@@ -86,8 +109,8 @@ class MuiVirtualizedTable extends React.PureComponent {
   };
 
   headerRenderer = ({ label, dataKey}) => {
-    const {   classes, width, onSearch, onSort, direction, checked, toggleChecked } = this.props;
-console.log(7, checked);
+    const {   classes, width, onSearch, onSort, direction, checked, toggleChecked, handleChange, selectedColors } = this.props;
+//console.log(7, handleChange);
 
 const getSortIcon = (direct) => {
   if (direct === undefined) return <AddIcon/>
@@ -107,9 +130,24 @@ const getSortIcon = (direct) => {
       </TableCell>
       {dataKey=== 'name' || dataKey=== 'email' ? <TextField onChange={(e)=> onSearch({query: e.target.value, dataKey})}  label="search" variant="outlined" style={{ height: 10}} className={classes.input} /> : null}
       {dataKey=== 'active' ? <FormControlLabel control={<Switch size="small" checked={checked} onChange={() => toggleChecked({checked: !checked, dataKey})} />}
-        label="Small"
-      />   : null}
-      
+        label={checked? 'active' : 'all'}/>   : null}
+      {dataKey === 'eyeColor' ?   <FormControl className={classes.formControl}>
+        <InputLabel id="demo-mutiple-name-label">Color</InputLabel>
+        <Select
+          labelId="demo-mutiple-name-label"
+          multiple
+          value={selectedColors}
+          onChange={(e)=>handleChange({e: e.target.value})}
+          input={<Input />}
+          MenuProps={MenuProps}
+        >
+          {Object.values(colors).map(color => (
+            <MenuItem key={color} value={color} >
+              {color}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl> : null}
       </>
     );
   };
@@ -158,7 +196,9 @@ const getSortIcon = (direct) => {
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 export default function ReactVirtualizedTable(props) {
-  const {rows, onSearch, onSort, direction, checked, toggleChecked} = props;
+  const {rows, onSearch, onSort, direction, checked, toggleChecked, handleChange, selectedColors} = props;
+  //console.log(71, handleChange);
+  
   return (
     <Paper style={{ height: 600, width: '100%' }}>
       <VirtualizedTable
@@ -168,6 +208,8 @@ export default function ReactVirtualizedTable(props) {
         direction={direction}
         checked={checked}
         toggleChecked={toggleChecked}
+        handleChange={handleChange}
+        selectedColors={selectedColors}
         rowGetter={({ index }) => 
         Object.assign({}, rows[index], 
           {number: index+1, registered: rows[index].registered.split('T')[0] ,active: rows[index].isActive ? 'yes': 'no'})}

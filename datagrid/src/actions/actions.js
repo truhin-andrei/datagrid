@@ -48,6 +48,14 @@ export function sortToggle(prop) {
   }
 }
 
+export const HANDLE_ENUM = 'HANDLE_ENUM';
+export function handleEnum(prop) {
+  return {
+    type: HANDLE_ENUM,
+    e: prop.e
+  }
+}
+
 function fetchData() {
   return dispatch => {
     dispatch(requestData())

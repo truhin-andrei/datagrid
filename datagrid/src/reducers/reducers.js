@@ -4,7 +4,8 @@ import {
   RECEIVE_DATA,
   SEARCH_TEXT,
   SORT_NUMBER,
-  SORT_TOGGLE
+  SORT_TOGGLE,
+  HANDLE_ENUM
 } from '../actions/actions'
 
 
@@ -16,7 +17,7 @@ const initialState = {
   query: '',
   direction: undefined,
   checked: false,
-
+  selectedColors: []
 
 
 }
@@ -48,10 +49,27 @@ function peopleData(state = initialState, action) {
         return Object.assign({}, state, {
           checked: action.checked,
           filteredPeople: filterActive(action.checked, [...state.filteredPeople], action.keyData, [...state.people])
-        })
+        });
+        case HANDLE_ENUM:
+          return Object.assign({}, state, {
+            selectedColors: [...action.e],
+            filteredPeople: filterEnum( [...state.people], [ ...action.e])
+          })
     default:
       return state
   }
+}
+
+function filterEnum( array, selectedColors){
+  if (selectedColors.length === 0) {
+    console.log(55, selectedColors);
+    
+    return array;
+  }
+  return array.filter(
+    item => 
+     selectedColors.includes(item.eyeColor)
+  );
 }
 
 function filter(query, array, keyData){

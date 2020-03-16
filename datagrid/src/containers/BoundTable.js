@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ReactVirtualizedTable from '../components/ReactVirtualizedTable'
 import {
 
-  searchText, sortNumber, sortToggle
+  searchText, sortNumber, sortToggle, handleEnum
 } from '../actions/actions'
 
 class BoundTable extends Component {
@@ -22,6 +22,8 @@ class BoundTable extends Component {
           direction={this.props.direction}
           checked={this.props.checked}
           toggleChecked={this.props.toggleChecked}
+          handleChange={this.props.handleChange}
+          selectedColors={this.props.selectedColors}
           />
           
         )
@@ -37,7 +39,8 @@ const mapStateToProps = state => {
     return {
       peopleData: state.peopleData,
       direction: state.peopleData.direction,
-      checked: state.peopleData.checked
+      checked: state.peopleData.checked,
+      selectedColors: state.peopleData.selectedColors
     }
   }
 
@@ -51,6 +54,9 @@ const mapStateToProps = state => {
        },
        toggleChecked: (ownProps) => {
         return dispatch(sortToggle(ownProps))
+       },
+       handleChange: (ownProps) => {
+        return dispatch(handleEnum(ownProps))
        },
     }
   }
